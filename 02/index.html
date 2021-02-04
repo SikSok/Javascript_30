@@ -8,12 +8,31 @@
   <body>
     <div class="clock">
       <div class="clock-face">
-        <div class="hour"></div>
-        <div class="min"></div>
-        <div class="second"></div>
+        <div class="pointer hour"></div>
+        <div class="pointer min"></div>
+        <div class="pointer second"></div>
       </div>
     </div>
   </body>
+  <script>
+    const hourPointer = document.querySelector(".hour");
+    const minPointer = document.querySelector(".min");
+    const secPointer = document.querySelector(".second");
+    function setDate() {
+      const dateTime = new Date();
+      const seconds = dateTime.getSeconds();
+      const secondeAng = 90 + (seconds / 60) * 360;
+      const minutes = dateTime.getMinutes();
+      const minAng = 90 + (minutes / 60) * 360;
+      const hours = dateTime.getHours();
+      const houAng = 90 + (hours / 12) * 360;
+
+      hourPointer.style.transform = `rotate(${houAng}deg)`;
+      minPointer.style.transform = `rotate(${minAng}deg)`;
+      secPointer.style.transform = `rotate(${secondeAng}deg)`;
+    }
+    setInterval(setDate, 1000);
+  </script>
   <style>
     .clock {
       width: 300px;
@@ -24,9 +43,31 @@
     .clock-face {
       position: relative;
       border-radius: 50%;
-      width: 200px;
-      height: 200px;
+      width: 100%;
+      height: 100%;
       background-color: black;
+    }
+    .pointer {
+      width: 50%;
+      background: white;
+      position: absolute;
+      top: 50%;
+      transform-origin: 100% 50%;
+      transform: rotate(90deg);
+      box-shadow: 0 0 0 0.1px #fff, 0 0 0 1px rgb(0 0 0 / 10%),
+        0 0 8px rgb(0 0 0 / 40%), 2px 5px 1px rgb(0 0 0 / 50%);
+    }
+    .hour {
+      width: 40%;
+      height: 10px;
+    }
+    .min {
+      width: 45%;
+      height: 5px;
+    }
+    .second {
+      height: 2px;
+      background-color: red;
     }
   </style>
 </html>

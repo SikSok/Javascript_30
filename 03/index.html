@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="text-align: center">
+    <div class="operation-row">
+      Padding:<input type="range" id="size" min="0" max="50" value="25" />
+      Blur:<input type="range" id="blur" min="0" max="10" value="0" />
+      border-color:<input type="color" id="color" onchange="changeColor()" />
+    </div>
+    <p>
+      .image{padding: <span id="padding">25px</span>
+      px;filter:
+      <span id="blurStr">blur(0px)</span>
+      ;background:
+      <span id="background">red</span>
+      ;}
+    </p>
+    <img src="./preview.jpg" alt="" class="image" />
+  </body>
+  <script>
+    var padding = "25";
+    var blur = "blur(0px)";
+    var background = "";
+    // 修改图片框宽度
+    var sizeSelecter = document.getElementById("size");
+    sizeSelecter.onmousemove = () => {
+      document.documentElement.style.setProperty(
+        "--padding",
+        `${sizeSelecter.value}px`
+      );
+      padding = document.documentElement.style.getPropertyValue("--padding");
+      document.getElementById("padding").innerHTML = `${padding}`;
+    };
+
+    // 修改图片模糊程度
+    var blurSelecter = document.getElementById("blur");
+    blurSelecter.onmousemove = () => {
+      document.documentElement.style.setProperty(
+        "--img-filter",
+        `blur(${blurSelecter.value}px)`
+      );
+      blur = document.documentElement.style.getPropertyValue("--img-filter");
+      document.getElementById("blurStr").innerHTML = `${blur}`;
+    };
+
+    var colorSelecter = document.getElementById("color");
+    // 修改图片框颜色
+    function changeColor() {
+      document.documentElement.style.setProperty(
+        "--border-color",
+        colorSelecter.value
+      );
+      background = document.documentElement.style.getPropertyValue(
+        "--border-color"
+      );
+      document.getElementById("background").innerHTML = `${background}`;
+    }
+  </script>
+  <style>
+    :root {
+      --padding: 25px;
+      --border-color: red;
+      --img-filter: blur(0px);
+      margin-top: 100px;
+    }
+    .photoRow {
+      width: 400px;
+    }
+    .image {
+      padding: var(--padding);
+      background-color: var(--border-color);
+      filter: var(--img-filter);
+      height: auto;
+      width: 500px;
+    }
+  </style>
+</html>
