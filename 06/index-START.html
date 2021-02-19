@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="诗句关键词" />
+      <ul class="suggestions">
+        <li id="loading">搜索结果</li>
+      </ul>
+    </form>
+    <script>
+      const loading = document.getElementById("loading");
+      loading.innerHTML = "<span>诗词库加载中</span>";
+      const verse = [];
+      const endpoint =
+        "https://gist.githubusercontent.com/soyaine/81399bb2b24ca1bb5313e1985533c640/raw/bdf7df2cbcf70706c4a5e51a7dfb8c933ed78878/TangPoetry.json";
+
+      fetch(endpoint)
+        .then((blog) => blog.json())
+        .then((data) => {
+          verse.push(...data);
+          loading.innerHTML = "<span>加载完成</span>";
+        });
+
+      var searchDom = document.querySelector(".search");
+      var content = document.querySelector(".suggestions");
+
+      // 搜索框监听事件
+      searchDom.addEventListener("change", FetcheMatches);
+      searchDom.addEventListener("keyup", FetcheMatches);
+      searchDom.addEventListener("keydown", FetcheMatches);
+
+      /* 获取匹配项 生成内容 */
+      function FetcheMatches() {
+        var matches = MatchesVerse(this.value);
+        var regex = new RegExp(this.value, "gi");
+        var html = matches
+          .map((element) => {
+            // 替换高亮的标签
+            const text = element.detail_text.replace(
+              regex,
+              `<span class="hl">${this.value}</span>`
+            );
+            const title = element.title.replace(
+              regex,
+              `<span class="hl">${this.value}</span>`
+            );
+
+            /* 构造 HTML 值 */
+            return `
+				<li>
+					<span class="poet">${text}</span>
+					<span class="title">${title} - ${element.detail_author[0]}</span>
+				</li>
+			`;
+          })
+          .join("");
+        content.innerHTML = html;
+      }
+
+      /* 根据关键字获取匹配的诗句集合 */
+      function MatchesVerse(keyWorld) {
+        return verse.filter((element) => {
+          var regex = new RegExp(keyWorld, "gi");
+          const author = element.detail_author.join("");
+          return (
+            element.detail_text.match(regex) ||
+            element.title.match(regex) ||
+            author.match(regex)
+          );
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>按F12打开控制台</h1>
+1：数组遍历 reduce()</br>
+2：排序 sort()</br>
+3：数据重载 map()</br>
+4：数据过滤 filter()</br>
+5：控制台表格显示
+
+  </body>
+  <script type="text/javascript" src="./index.js"></script>
+  <script>
+    /* 数组遍历 */
+    const data = [
+      "car",
+      "car",
+      "truck",
+      "truck",
+      "bike",
+      "walk",
+      "car",
+      "van",
+      "bike",
+      "walk",
+      "car",
+      "van",
+      "car",
+      "truck",
+    ];
+    const reduce = data.reduce((obj, item) => {
+      if (!obj[item]) {
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {});
+    console.log(reduce);
+
+    /* 控制台排序  */
+    const __ordered = inventors.sort((a, b) => (a.year < b.year ? 1 : -1));
+    console.table(__ordered);
+
+    /* map 数组重载  */
+    const fullName = inventors.map(
+      (inventor) => inventor.first + " " + inventor.last
+    );
+    console.table(fullName);
+
+    /* 控制台过滤 */
+    const _fifteen = inventors.filter(
+      (inventor) => inventor.year >= 1500 && inventor.year < 1600
+    );
+    console.table(_fifteen);
+    /* 表格显示 */
+    console.table(inventors);
+  </script>
+</html>

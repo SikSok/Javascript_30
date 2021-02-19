@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flex 弹性布局</title>
+  </head>
+  <body>
+    <div class="flex">
+      <div id="one" class="panel bac1">Ⅰ</div>
+      <div id="two" class="panel bac2">Ⅱ</div>
+      <div id="three" class="panel bac3">
+        <div class="top">WOW</div>
+        <div class="center">Ⅲ</div>
+        <div class="bottom">COOL</div>
+      </div>
+      <div id="four" class="panel bac4">Ⅳ</div>
+      <div id="five" class="panel bac5">Ⅴ</div>
+    </div>
+  </body>
+  <script>
+    var bacUrls = [
+      "./image/black-forest.png",
+      "./image/door.png",
+      "./image/fangshan.png",
+      "./image/night.png",
+      "./image/tiger.png",
+    ];
+    var elements = document.getElementsByClassName("panel");
+    /* 加上点击监听事件 */
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener("click", (item) => {
+        item.srcElement.style.width = "40vw";
+        item.srcElement.style.transition = "all 0.5s ease";
+      });
+      /* 结束变换监听 */
+      elements[i].addEventListener("transitionend", (item) => {
+        item.srcElement.style.width = "20vw";
+      });
+    }
+    /* 加上背景图 */
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].style.background = `url(${bacUrls[i]}) no-repeat center`;
+    }
+  </script>
+  <style>
+    .flex {
+      display: flex;
+      flex-flow: row nowrap;
+      flex: 0 0 300px;
+    }
+    .flex :hover {
+      width: 1000px;
+    }
+    .panel {
+      /* 弹性布局 */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 20vw;
+      height: 100vh;
+      color: white;
+      font-size: 50px;
+      text-align: center;
+      vertical-align: auto;
+    }
+    .top {
+      flex: 0 1 auto;
+    }
+    .center {
+      flex: 0 1 auto;
+    }
+    .bottom {
+      flex: 0 1 auto;
+    }
+  </style>
+</html>
