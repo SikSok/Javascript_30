@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arrary的some,every,splice,spice</title>
+  </head>
+  <body>
+    <h1>F12查看使用效果</h1>
+  </body>
+  <script>
+    const people = [
+      { name: "Wes", year: 1988 },
+      { name: "Kait", year: 1986 },
+      { name: "Irv", year: 1970 },
+      { name: "Lux", year: 2015 },
+    ];
+
+    const comments = [
+      { text: "Love this!", id: 523423 },
+      { text: "Super good", id: 823423 },
+      { text: "You are the best", id: 2039842 },
+      { text: "Ramen is my fav food ever", id: 123523 },
+      { text: "Nice Nice Nice!", id: 542328 },
+    ];
+
+    /* 判断是否有大于19岁的 */
+    const haveAdult = people.some((element) => 2021 - element.year > 19);
+    console.log(`假设当前时间是2021年，是否有成年人判断结果：${haveAdult}`);
+
+    /* 判断是否全部大于19岁 */
+    const allAdult = people.every((element) => 2021 - element.year > 19);
+    console.log(`假设当前时间是2021年，是否全部是成年人判断结果：${allAdult}`);
+
+    /* find */
+    const findOne = people.find((x) => x.year == 1970);
+    console.log(`找到1970年出生的人：${findOne.name}`);
+
+    /* 获取某元素的坐标 */
+    const index = comments.findIndex((x) => x.id == 2039842);
+
+    /* 删除获取坐标的元素 */
+    var result = comments.splice(index, 1);
+    console.log("splice删除以下元素");
+    console.table(result);
+
+    console.log("splice会修改原数组如下,现在只剩4个元素了");
+    console.table(comments);
+
+    /* slice 拼接*/
+    var sliceArray = [...comments.slice(0, 1), ...comments.slice(2)];
+    console.log("拼接剩余4元素的第一个和第三第四个");
+    console.table(sliceArray);
+  </script>
+</html>
