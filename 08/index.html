@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>彩虹画笔js实现</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+  </body>
+  <script>
+    const canvas = document.querySelector("#canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    ctx.lineWidth = 90;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "rounde";
+    ctx.strokeStyle = "#f00";
+    ctx.fillStyle = "#f00";
+
+    var isDraw = false;
+    var direction = false;
+    let lastX = 0;
+    let lastY = 0;
+    let x = 0;
+    let y = 0;
+    let colorValue = 0;
+
+    function Draw(e) {
+      if (!isDraw) return;
+      x = e.offsetX;
+      y = e.offsetY;
+
+      /* 彩虹变色 */
+      if (colorValue > 360) colorValue = 0;
+      colorValue++;
+      ctx.strokeStyle = `hsl(${colorValue},90%,50%)`;
+
+      /* 线宽变化 */
+      if (ctx.lineWidth > 120 || ctx.lineWidth < 10) {
+        direction = !direction;
+      }
+      if (direction) {
+        ctx.lineWidth++;
+      } else {
+        ctx.lineWidth--;
+      }
+
+      /* 绘制 */
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      [lastX, lastY] = [x, y];
+    }
+
+    canvas.addEventListener("mousemove", Draw);
+    canvas.addEventListener("mousedown", (e) => {
+      isDraw = true;
+      [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+    canvas.addEventListener("mouseup", () => {
+      isDraw = false;
+    });
+    canvas.addEventListener("mouseout", () => (isDraw = false));
+  </script>
+</html>
