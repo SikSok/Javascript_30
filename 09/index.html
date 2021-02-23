@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>console.log使用</title>
+  </head>
+  <body>
+    <h1 id="log" style="color: darkorange">log 秀 点击F12查看</h1>
+  </body>
+  <script>
+    console.log("我是console的家族成员log");
+    console.log(
+      "我会变身哦 %c 你看 ~\(>-<)/~ 哈哈哈",
+      "color:#00fdff;font-size:2em"
+    );
+
+    console.warn("warning! 我警告你别小瞧我哦！");
+
+    console.error("error~ 我可是非常厉害的！");
+
+    const strRow = document.querySelector("#log");
+    console.log(strRow);
+
+    console.dir(strRow);
+
+    console.log("console.assert 进行条件判断 判断错误输出第二个参数");
+    console.assert(1 === 1, "判断正确，本句不会输出");
+    console.assert(1 === 0, "看看看，失策了吧");
+    status = 2;
+
+    console.count("🐏跳出来了，现在有：");
+    console.count("🐏跳出来了，现在有：");
+    console.count("🐟跳出来了，现在有：");
+    console.count("🐏跳出来了，现在有：");
+    console.count("🐟跳出来了，现在有：");
+
+    const verse = [];
+    const endpoint =
+      "https://gist.githubusercontent.com/soyaine/81399bb2b24ca1bb5313e1985533c640/raw/bdf7df2cbcf70706c4a5e51a7dfb8c933ed78878/TangPoetry.json";
+
+    console.info("info 偷偷告诉你,快捷键ctrl+L 可以清空控制台面板");
+
+    console.log(
+      "console.time和console.timeEnd可以搭配使用判断异步执行花费时间"
+    );
+    console.time("fetch my data");
+    fetch(endpoint)
+      .then((blog) => blog.json())
+      .then((data) => {
+        verse.push(...data);
+        console.timeEnd("fetch my data");
+      });
+  </script>
+</html>
