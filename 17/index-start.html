@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sort Without Articles</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <ul id="bands"></ul>
+
+    <script>
+      const bands = [
+        "The Plot in You",
+        "The Devil Wears Prada",
+        "Pierce the Veil",
+        "Norma Jean",
+        "The Bled",
+        "Say Anything",
+        "The Midway State",
+        "We Came as Romans",
+        "Counterparts",
+        "Oh, Sleeper",
+        "A Skylit Drive",
+        "Anywhere But Here",
+        "An Old Dog",
+      ];
+
+      function replaceStr(str) {
+        return str.replace(/^(The|A|An)\s{1}/, "");
+      }
+
+      bands.sort((a, b) => {
+        let sdasf = replaceStr(a);
+        return replaceStr(a) > replaceStr(b) ? 1 : -1;
+      });
+      document.getElementById("bands").innerHTML = `<li>${bands.join(
+        "</li><li>"
+      )}</li>`;
+    </script>
+  </body>
+</html>

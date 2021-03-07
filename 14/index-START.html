@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Reference VS Copy</title>
+  </head>
+  <body>
+    <h1>值类型和引用类型的复制 点击F12查看</h1>
+    <script>
+      // 从 String、Number、Boolean 类型的值开始：
+
+      let age = 10;
+      let age2 = age;
+      age2 = 20;
+      console.log(age, age2);
+
+      let bool = false;
+      let bool2 = bool;
+      bool2 = true;
+      console.log(bool, bool2);
+
+      let str = "我爱阅读";
+      let str2 = str;
+      str2 = "喜欢就要一直玩下去啊！";
+      console.log(str, str2);
+
+      console.warn(
+        "以上输出说明被父值类型数据赋值后，子数据改变不会影响父数据变动。"
+      );
+
+      // 首先我们有一个数组
+      const players = ["Wes", "Sarah", "Ryan", "Poppy"];
+      const players2 = players;
+      players2[3] = "changed";
+      console.log(players, players2);
+
+      console.warn(
+        "可以看出引用类型的赋值并不是新建一个独立数据，而是引用同一个数据源，所以赋值后的变动会造成联动影响，这也是其数据名称的由来。"
+      );
+      console.warn("以下复制方法可以复制数据源");
+      /* slice切割复制 */
+      const sliceOne = players.slice();
+      sliceOne[3] = "sliceChange";
+      console.log(players, sliceOne);
+      /* concat拼接复制 */
+      const concatOne = [].concat(players);
+      concatOne[3] = "concatChange";
+      console.log(players, concatOne);
+      /* es6新语法复制 */
+      const es6One = [...players];
+      es6One[3] = "es6Change";
+      console.log(players, es6One);
+      /* 新建Array实例复制 */
+      const newArrray = Array.from(players);
+      newArrray[3] = "newArrayChange";
+      console.log(players, newArrray);
+
+      console.warn("对象的复制最简单用json转化复制，或者使用assign新建覆盖");
+    </script>
+  </body>
+</html>
